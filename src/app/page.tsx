@@ -6,6 +6,7 @@ import {getCurrentLocationString, getCurrentTimeAndDay} from '../utils';
 import { faWind, faThermometerHalf, faDroplet, faLocationDot, faClock } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
 import Loader from './loader';
+import { Rain } from 'react-rainfall';
 
 interface WeatherData {
   location: string;
@@ -25,6 +26,7 @@ const App: React.FC = () => {
   const [data, setData] = useState<WeatherData | null>(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showRain, setShowRain] = useState(false);
 
   useEffect(()=> {
     // Fetching current city
@@ -43,6 +45,8 @@ const App: React.FC = () => {
     try {
       const resp = await axios.get<WeatherData>(`http://127.0.0.1:3000/api/weather/${override || place}`);
       setData(resp.data);
+      // Assuming that it's raining. Could add better support for visuals
+      setShowRain(true);
     } catch (error:any) {
       console.error('Error fetching weather data:', error.message);
       setError(true);
@@ -63,6 +67,7 @@ const App: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900 bg-opacity-60 backdrop-blur-md">
+      {showRain && <Rain />}
       <div className="bg-white rounded-lg shadow-lg w-fit p-8 backdrop-filter backdrop-blur-sm bg-opacity-70 text-center">
         <h1 className='text-3xl text-neutral-600 font-bold'>Weather Better</h1>
         <p className='mb-6'>Check wheather it&apos;s any better</p>
@@ -131,6 +136,16 @@ const App: React.FC = () => {
                     <div className='text-xs text-neutral-600'>Humidity</div>
                     {data.humidity} %
                   </div>
+                </div>
+              </div>
+              <div className='w-full h-1 border-b border-neutral-400 my-4' />
+              <div className='bg-neutral-500 rounded p-2 w-full flex items-center'>
+                <div className='flex mr-4'>
+                  <Image  src="swiggy-1.svg" alt={''} width={18} height={18} />
+                  <Image  src="uber-4.svg" alt={''} width={24} height={24} />
+                </div>
+                <div>
+                  Expect delay in road transport services
                 </div>
               </div>
             </div>
