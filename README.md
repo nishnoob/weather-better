@@ -2,6 +2,16 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+Before running the development server, make sure to modify the `package.json` script for the 'dev' and 'start' command. If you are on MacOS or Linux, update it as follows:
+
+```json
+"scripts": {
+  "dev": "NODE_ENV=development node server.js",
+  "start": "NODE_ENV=production node server.js"
+  // ... other scripts ...
+}
+```
+
 First, run the development server:
 
 ```bash

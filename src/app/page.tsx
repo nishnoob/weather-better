@@ -10,7 +10,7 @@ export default function Home() {
   }, []);
   
   const getWeatherData = async () => {
-    const resp = await axios.get('http://127.0.0.1:3000/api/');
+    const resp = await axios.get('http://127.0.0.1:3000/api/weather/mumbai');
     console.log("first", resp.data)
   };
 

@@ -2,10 +2,14 @@ const express = require('express');
 const next = require('next');
 const apiRoutes = require('./src/api/weather');
 const cors = require('cors');
+const dotenv = require('dotenv');
 
 const dev = process.env.NODE_ENV !== 'production';
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
+
+const environment = process.env.NODE_ENV || 'development';
+dotenv.config({ path: `.env.${environment}` });
 
 nextApp.prepare().then(() => {
   const server = express();
