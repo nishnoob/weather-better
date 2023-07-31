@@ -1,6 +1,19 @@
+'use client'
+
+import axios from 'axios';
 import Image from 'next/image'
+import { useEffect } from 'react';
 
 export default function Home() {
+  useEffect(() => {
+    getWeatherData();
+  }, []);
+  
+  const getWeatherData = async () => {
+    const resp = await axios.get('http://127.0.0.1:3000/api/');
+    console.log("first", resp.data)
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
