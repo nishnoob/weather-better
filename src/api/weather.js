@@ -17,8 +17,9 @@ router.get('/weather/:location', async (req, res) => {
       temperature: response.data.main.temp,
       humidity: response.data.main.humidity,
       windSpeed: response.data.wind.speed,
-      weather: response.data.weather[0].description,
+      weather: response.data.weather[0],
       location: response.data.name,
+      data: response.data
     };
 
     res.json(weatherData);
